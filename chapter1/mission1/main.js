@@ -1,5 +1,5 @@
 function nameCheck() {
-    var name = document.getElementsByName("name_value")[0].value;
+    var name = document.getElementById("name_value").value;
     var msg = document.getElementById("name_error")
     if (!isNaN(name)) {
         msg.textContent = '문자만 입력해주세요.';
@@ -15,7 +15,7 @@ function nameCheck() {
     }
 }
 function emailCheck() {
-    var email = document.getElementsByName("email_value")[0].value;
+    var email = document.getElementById("email_value").value;
     var msg = document.getElementById("email_error")
     if (typeof (email) != "string") {
         msg.textContent = '문자만 입력해주세요.';
@@ -31,7 +31,7 @@ function emailCheck() {
     }
 }
 function ageCheck() {
-    var age = document.getElementsByName("age_value")[0].value;
+    var age = document.getElementById("age_value").value;
     var int_age = parseInt(age, 10);
     var msg = document.getElementById("age_error")
     if (isNaN(int_age)) {
@@ -56,8 +56,8 @@ function ageCheck() {
     }
 }
 function pwCheck() {
-    var pw = document.getElementsByName("email_value")[0].value;
-    var msg = document.getElementById("email_error")
+    var pw = document.getElementById("pw_value").value;
+    var msg = document.getElementById("pw_error")
     var pattern_num = /[0-9]/;
     var pattern_eng = /[a-zA-Z]/;
     var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/;
@@ -70,7 +70,7 @@ function pwCheck() {
         msg.textContent = '비밀번호는 최대 12자리 입니다.';
         msg.style.color = 'red';
     }
-    else if ((!pattern_num.test(pw) || !pattern_eng.test(pw) || !pattern_spc.test(pw)) && pattern_kor.test(pw)) {
+    else if (!pattern_num.test(pw) || !pattern_eng.test(pw) || !pattern_spc.test(pw) || pattern_kor.test(pw)) {
         msg.textContent = '영문, 숫자, 특수문자를 조합해 주세요.';
         msg.style.color = 'red';
     }
@@ -80,8 +80,8 @@ function pwCheck() {
     }
 }
 function pwcCheck() {
-    var pw = document.getElementsByName("email_value")[0].value;
-    var pwc = document.getElementsByName("pwc_value")[0].value;
+    var pw = document.getElementById("pw_value").value;
+    var pwc = document.getElementById("pwc_value").value;
     var msg = document.getElementById("pwc_error")
     if (pw !== pwc) {
         msg.textContent = '비밀번호가 다릅니다.';
@@ -93,7 +93,7 @@ function pwcCheck() {
     }
 }
 const register = document.getElementById("register");
-const inputs = document.querySelectorAll('.text_input:not([name="name"])');
+const inputs = document.querySelectorAll('.text_input');
 inputs.forEach(input => {
     input.addEventListener('keyup', () => {
         let check = true;
