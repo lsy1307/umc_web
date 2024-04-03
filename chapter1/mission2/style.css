@@ -49,25 +49,25 @@ body{
     display:flex;
     justify-content: space-between;
 }
-#todo-items{
+#todo_items{
     width: 50%;
     height: 100%;
     display: inline-block;
     vertical-align: top;
     margin-left:300px;
 }
-#done-items{
+#done_items{
     height: 100%;
     vertical-align: top;
     margin-right:300px;
 }
 
-.todo-item {
+.todo_item {
     display: flex;
     align-items: center;
     margin-top: 10px;
 }
-.todo-item span {
+.todo_item span {
     margin-right: 10px;
 }
 
