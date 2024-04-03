@@ -56,8 +56,8 @@ function ageCheck() {
     }
 }
 function pwCheck() {
-    var pw = document.getElementsByName("email_value")[0].value;
-    var msg = document.getElementById("email_error")
+    var pw = document.getElementsByName("pw_value")[0].value;
+    var msg = document.getElementById("pw_error")
     var pattern_num = /[0-9]/;
     var pattern_eng = /[a-zA-Z]/;
     var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/;
@@ -70,7 +70,7 @@ function pwCheck() {
         msg.textContent = '비밀번호는 최대 12자리 입니다.';
         msg.style.color = 'red';
     }
-    else if ((!pattern_num.test(pw) || !pattern_eng.test(pw) || !pattern_spc.test(pw)) && pattern_kor.test(pw)) {
+    else if (!pattern_num.test(pw) || !pattern_eng.test(pw) || !pattern_spc.test(pw) || pattern_kor.test(pw)) {
         msg.textContent = '영문, 숫자, 특수문자를 조합해 주세요.';
         msg.style.color = 'red';
     }
@@ -80,7 +80,7 @@ function pwCheck() {
     }
 }
 function pwcCheck() {
-    var pw = document.getElementsByName("email_value")[0].value;
+    var pw = document.getElementsByName("pw_value")[0].value;
     var pwc = document.getElementsByName("pwc_value")[0].value;
     var msg = document.getElementById("pwc_error")
     if (pw !== pwc) {
