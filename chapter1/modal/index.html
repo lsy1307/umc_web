@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="" width=device-width, initial-scale="1.0">
+    <title>Document</title>
+    <style>
+        .popup {
+            position: absolute;
+            display: none;
+
+            justify-content: center;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+
+
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .popup_body {
+            position: absolute;
+            top: 50%;
+
+
+            width: 370px;
+            height: 150px;
+
+            text-align: left;
+            border-radius: 5px;
+            background-color: white;
+            transform: translateY(-50%);
+        }
+
+        .popup_body p,
+        h3 {
+            margin-left: 20px;
+            /* p 태그 내용에 왼쪽 여백을 추가합니다. */
+        }
+
+        #close {
+            position: absolute;
+            right: 25px;
+            bottom: 30px;
+            background-color: white;
+            border-width: 0.5px;
+            border-radius: 3px;
+            border-color: gray;
+            font-size: 10px;
+            box-shadow: 0px 0.3px 1px rgba(0, 0, 0, 0.5);
+        }
+
+        #open {
+            position: absolute;
+            background-color: white;
+            border-width: 0.5px;
+            border-radius: 3px;
+            border-color: gray;
+            font-size: 10px;
+            box-shadow: 0px 0.3px 1px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="number">안녕하세요!</h1>
+    <p>내용 내용 내용</p>
+    <button id="open">버튼 열기</button>
+    <div id="popup" class="popup">
+        <div class="popup_body">
+            <h3 id="title">안녕하세요</h3>
+            <p>모달 내용은 어쩌고 저쩌고...</p>
+            <button id="close">닫기</button>
+        </div>
+    </div>
+    <script src='main.js'></script>
+</body>
+
+</html>
