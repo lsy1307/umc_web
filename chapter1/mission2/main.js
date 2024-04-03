@@ -1,27 +1,27 @@
 function addTodoItem(text) {
-    const todoContainer = document.getElementById('todo_items');
-    const doneContainer = document.getElementById('done_items');
-    const todoElement = document.createElement('div');
-    todoElement.classList.add('todo_item');
+    const todo = document.getElementById('todo_items');
+    const done = document.getElementById('done_items');
+    const _object = document.createElement('div');
+    _object.classList.add('todo_item');
     
-    const todoContent = document.createElement('span');
-    todoContent.textContent = text;
-    const completeButton = document.createElement('button');
-    completeButton.textContent = '완료';
-    completeButton.onclick = function() {
-        todoElement.removeChild(completeButton);
-        const closeButton = document.createElement('button');
-        closeButton.textContent = '삭제';
-        closeButton.onclick = function() {
-            doneContainer.removeChild(todoElement);
+    const contents = document.createElement('span');
+    contents.textContent = text;
+    const cb = document.createElement('button');
+    cb.textContent = '완료';
+    cb.onclick = function() {
+        _object.removeChild(cb);
+        const clb = document.createElement('button');
+        clb.textContent = '삭제';
+        clb.onclick = function() {
+            done.removeChild(_object);
         };
-        todoElement.appendChild(closeButton);
-        todoContainer.removeChild(todoElement);
-        doneContainer.appendChild(todoElement);
+        _object.appendChild(clb);
+        todo.removeChild(_object);
+        done.appendChild(_object);
     };
-    todoElement.appendChild(todoContent);
-    todoElement.appendChild(completeButton);
-    todoContainer.appendChild(todoElement);
+    _object.appendChild(contents);
+    _object.appendChild(cb);
+    todo.appendChild(_object);
 }
 document.addEventListener('DOMContentLoaded', function() {
     const textBox = document.getElementById('text_box');
