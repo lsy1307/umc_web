@@ -50,16 +50,16 @@ body{
     justify-content: space-between;
 }
 #todo_items{
-    width: 50%;
+    width: 10%;
     height: 100%;
     display: inline-block;
     vertical-align: top;
-    margin-left:300px;
+    margin-left:800px;
 }
 #done_items{
     height: 100%;
     vertical-align: top;
-    margin-right:300px;
+    margin-right:800px;
 }
 
 .todo_item {
