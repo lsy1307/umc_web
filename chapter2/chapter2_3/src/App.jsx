@@ -13,14 +13,14 @@ function App() {
         content: inputValue,
         isDone: false,
       };
-      setTodos([...todos, newTodo]);
-      setInputValue(""); // 입력 필드 초기화
+      setTodos([...todos, newTodo]); // 기존 배열을 복사하고 newTodo를 추가
+      setInputValue(""); //textbox 초기화
     }
   };
   const makeDone = (id) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
-        return { ...todo, isDone: true };
+        return { ...todo, isDone: true }; // 기존 배열을 복사하고 바꿀 id가 같은 요소의 isDone 값만 true로 변경
       }
       return todo;
     });
@@ -40,7 +40,7 @@ function App() {
       <div>
         <input
           style={{
-            marginTop: "30px",
+            marginTop: "30x",
             width: "500px",
             height: "50px",
             paddingLeft: "10px",
@@ -93,7 +93,7 @@ function App() {
           style={{
             width: "400px",
             minHeight: "500px",
-            marginRight: "100px",
+            marginLeft: "100px",
             backgroundColor: "black",
             display: "flex",
             flexDirection: "column",
