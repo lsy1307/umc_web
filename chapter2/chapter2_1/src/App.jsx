@@ -18,7 +18,7 @@ function Count() {
       <button
         onClick={() => {
           setCount(count - 1);
-          console.log("increase가 클릭 됨");
+          console.log("decrease가 클릭 됨");
         }}
       >
         -1
