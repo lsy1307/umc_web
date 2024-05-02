@@ -3,17 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import MovieComponent from "../components/movieComponent";
 import { getAPI } from "../config.js";
-import loading from "../assets/loading.svg";
-
-const Loading = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
-const LoadingImage = styled.img`
-  width: 10%;
-`;
+import Loading from "../components/Loading.jsx";
 
 const Upcoming = () => {
   const [movieData, setMovieData] = useState([]);
@@ -36,11 +26,7 @@ const Upcoming = () => {
   }, []);
 
   if (isLoading) {
-    return (
-      <Loading>
-        <LoadingImage src={loading} />
-      </Loading>
-    );
+    return <Loading />;
   } else {
     return <MovieComponent movieData={movieData} />;
   }

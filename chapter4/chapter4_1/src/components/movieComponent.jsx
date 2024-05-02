@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Background = styled.div`
   width: 100%;
@@ -31,7 +33,7 @@ const MovieOverview = styled.div`
 
   padding: 10px;
 
-  z-index: 0;
+  z-index: 999;
 
   word-wrap: break-word;
 
@@ -65,6 +67,8 @@ const MovieText = styled.div`
 `;
 
 const MovieComponent = ({ movieData }) => {
+  const navigate = useNavigate();
+
   return (
     <Background>
       <MovieContainer>
@@ -73,7 +77,9 @@ const MovieComponent = ({ movieData }) => {
             <div>
               <MovieOverview
                 className="movie-overview"
-                onClick={() => this.props.history.push(`/movie/${movie.title}`)}
+                onClick={() =>
+                  navigate(`/movie/${movie.title}`, { state: { movie } })
+                }
               >
                 <h2>{movie.title}</h2>
                 <OverView>{movie.overview}</OverView>
