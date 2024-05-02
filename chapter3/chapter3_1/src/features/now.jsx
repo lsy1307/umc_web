@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import styled from "styled-components";
 import MovieComponent from "../components/movieComponent";
 import { getAPI } from "../config.js";
 import loading from "../assets/loading.svg";
+
+const Loading = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+const LoadingImage = styled.img`
+  width: 10%;
+`;
 
 const Now = () => {
   const [movieData, setMovieData] = useState([]);
@@ -26,16 +37,9 @@ const Now = () => {
 
   if (isLoading) {
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <img src={loading} alt="Loading" width="10%" />
-      </div>
+      <Loading>
+        <LoadingImage src={loading} />
+      </Loading>
     );
   } else {
     return <MovieComponent movieData={movieData} />;

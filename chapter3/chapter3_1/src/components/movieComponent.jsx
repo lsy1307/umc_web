@@ -2,24 +2,24 @@ import styled from "styled-components";
 
 const Background = styled.div`
   width: 100%;
-  background-color: navy;
+  background-color: #135d66;
 `;
 
 const MovieContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 20px;
 
-  padding: 100px 40px;
+  padding: 150px 40px;
 `;
 
 const ContentContainer = styled.div`
-  background-color: black;
+  background-color: #77b0aa;
   padding: 10px;
   position: relative;
 
   &:hover .movie-poster-container {
-    opacity: 0.3;
+    opacity: 0.1;
   }
 `;
 
@@ -27,9 +27,9 @@ const MovieOverview = styled.div`
   position: absolute;
 
   display: none;
-  color: white;
+  color: #e3fef7;
 
-  padding: 20px;
+  padding: 10px;
 
   z-index: 0;
 
@@ -48,11 +48,20 @@ const MoviePoster = styled.img`
 `;
 
 const MovieData = styled.div`
-  color: white;
+  color: e3fef7;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-bottom: 50px;
+  padding-bottom: 10px;
+`;
+
+const OverView = styled.p`
+  padding-top: 30px;
+`;
+
+const MovieText = styled.div`
+  font-weight: bold;
+  color: #e3fef7;
 `;
 
 const MovieComponent = ({ movieData }) => {
@@ -64,9 +73,8 @@ const MovieComponent = ({ movieData }) => {
             <div>
               <MovieOverview className="movie-overview">
                 <h2>{movie.title}</h2>
-                <p>{movie.overview}</p>
+                <OverView>{movie.overview}</OverView>
               </MovieOverview>
-
               <div className="movie-poster-container">
                 <MoviePoster
                   src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
@@ -74,10 +82,9 @@ const MovieComponent = ({ movieData }) => {
                   className="movie-poster"
                 />
               </div>
-
               <MovieData>
-                <div>{movie.title}</div>
-                <div>{movie.vote_average}</div>
+                <MovieText>{movie.title}</MovieText>
+                <MovieText>{movie.vote_average}</MovieText>
               </MovieData>
             </div>
           </ContentContainer>

@@ -12,9 +12,9 @@ const Banner = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 50%;
-  background-color: #db9f13;
-  color: white;
+  height: 30%;
+  background-color: #77b0aa;
+  color: #e3fef7;
   text-align: center;
   font-weight: bold;
   font-size: 30px;
@@ -22,10 +22,10 @@ const Banner = styled.div`
 
 const Search = styled.div`
   width: 100%;
-  height: 50%;
+  height: 65%;
   text-align: center;
-  background-color: #0c0c41;
-  color: white;
+  background-color: #135d66;
+  color: e3fef7;
   font-weight: bold;
   font-size: 30px;
   padding-top: 50px;
@@ -33,13 +33,20 @@ const Search = styled.div`
   flex-direction: column;
 `;
 
+const MovieIcon = styled.img`
+  vertical-align: "middle";
+  position: relative;
+  top: 5px;
+`;
+
 const MovieText = styled.span`
   vertical-align: middle;
-  margin-left: 10px; //조정이 필요한 경우 값을 변경하세요.
+  margin-left: 10px;
+  color: #e3fef7;
 `;
 
 const SearchBarContainer = styled.div`
-  width: 20%;
+  width: 30%;
   display: flex;
   align-items: center;
   margin: 20px auto;
@@ -49,12 +56,17 @@ const SearchInput = styled.input`
   width: 100%;
   padding: 10px;
   border-radius: 20px;
+  border: 5px;
 `;
 
-const SearchButton = styled.div`
+const SearchButton = styled.button`
   display: flex;
-  margin-left: 15px;
-  cursor: pointer;
+  padding-left: 5px;
+  background-color: transparent;
+  border: none;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Main = () => {
@@ -63,11 +75,7 @@ const Main = () => {
       <Banner>환영합니다.</Banner>
       <Search>
         <div>
-          <img
-            src={movie}
-            alt="Movie Icon"
-            style={{ verticalAlign: "middle" }}
-          />
+          <MovieIcon src={movie}></MovieIcon>
           <MovieText>Find Your Movies!</MovieText>
         </div>
         <SearchBarContainer>
