@@ -8,6 +8,7 @@ import Now from "./features/now";
 import Top from "./features/toprated";
 import Upcoming from "./features/upcoming";
 import Detail from "./features/detail";
+import NotFound from "./components/notfound";
 
 function App() {
   return (
@@ -19,8 +20,9 @@ function App() {
           <Route path="/nowplaying" element={<Now />} />
           <Route path="/toprated" element={<Top />} />
           <Route path="/upcoming" element={<Upcoming />} />
-          <Route path="/movie/:title" element={<Detail />}></Route>
+          <Route path="/movie/:title" element={<Detail />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

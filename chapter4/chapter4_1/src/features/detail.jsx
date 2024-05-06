@@ -7,46 +7,51 @@ import Loading from "../components/Loading.jsx";
 import { useLocation } from "react-router-dom";
 
 const Container = styled.div`
-  height: 100%;
-`;
-const BackGround = styled.img`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   height: 100%;
   width: 100%;
+`;
+const BackGroundImage = styled.img`
+  height: 100%;
+  width: 100%;
+  opacity: 0.8;
+  position: absolute;
+  z-index: -999;
+`;
+const Content = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 `;
 const Poster = styled.img`
-  height: 70%;
-  width: 25%;
-  margin-right: 20px;
+  width: 15%;
+  height: auto;
+  min-width: 20%;
 `;
 const OverView = styled.div`
   height: 70%;
   width: 40%;
   text-align: left;
+  margin-top: 400px;
+  margin-left: 100px;
 `;
 const Title = styled.div`
   height: 10%;
   color: white;
   font-weight: bold;
-  font-size: 20px;
-`;
-const Rate = styled.div`
-  height: 8%;
-  color: white;
-  font-weight: bold;
-  font-size: 15px;
-`;
-const When = styled.div`
-  height: 8%;
-  color: white;
-  font-weight: bold;
-  font-size: 15px;
+  font-size: 30px;
 `;
 const Text = styled.div`
   height: 8%;
   color: white;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 20px;
 `;
 
 const Detail = () => {
@@ -68,15 +73,40 @@ const Detail = () => {
     };
     getMovieData();
   }, []);
+  const returnRate = (average) => {
+    const roundedRating = Math.floor(average);
+    let rate = "";
+    for (let i = 0; i < roundedRating; i++) {
+      rate += "⭐";
+    }
+    return rate;
+  };
+  const returnOverView = (overView) => {
+    if (overView.length != 0) {
+      return movie.overview;
+    } else {
+      return "상세 정보가 없습니다.";
+    }
+  };
   if (isLoading) {
     return <Loading />;
   } else {
     return (
       <Container>
-        <BackGround
-          src={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
-        />
-        <Poster src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
+        <Content>
+          <BackGroundImage
+            src={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
+          ></BackGroundImage>
+          <Poster
+            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+          />
+          <OverView>
+            <Title>{movie.title}</Title>
+            <Text>{returnRate(movie.vote_average)}</Text>
+            <Text>{movie.release_date}</Text>
+            <Text>{returnOverView(movie.overview)}</Text>
+          </OverView>
+        </Content>
       </Container>
     );
   }

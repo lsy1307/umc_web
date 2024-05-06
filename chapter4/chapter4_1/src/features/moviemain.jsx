@@ -11,11 +11,11 @@ const Banner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   width: 100%;
   height: 30%;
   background-color: #77b0aa;
   color: #e3fef7;
-  text-align: center;
   font-weight: bold;
   font-size: 30px;
 `;
