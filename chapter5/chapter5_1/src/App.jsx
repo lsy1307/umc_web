@@ -10,6 +10,7 @@ import Upcoming from "./features/upcoming";
 import Detail from "./features/detail";
 import NotFound from "./components/notfound";
 import Register from "./features/register";
+import Login from "./features/login";
 function App() {
   return (
     <BrowserRouter>
@@ -21,7 +22,8 @@ function App() {
           <Route path="/toprated" element={<Top />} />
           <Route path="/upcoming" element={<Upcoming />} />
           <Route path="/movie/:title" element={<Detail />} />
-          <Route path="/register" element={<Register />}></Route>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
