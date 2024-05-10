@@ -16,6 +16,7 @@ const MovieContainer = styled.div`
 `;
 
 const ContentContainer = styled.div`
+  max-width: 400px;
   background-color: #77b0aa;
   padding: 10px;
   position: relative;
@@ -27,7 +28,7 @@ const ContentContainer = styled.div`
 
 const MovieOverview = styled.div`
   position: absolute;
-
+  font-size: 12px;
   display: none;
   color: #e3fef7;
 
@@ -62,6 +63,7 @@ const OverView = styled.p`
 `;
 
 const MovieText = styled.div`
+  font-size: 15px;
   font-weight: bold;
   color: #e3fef7;
 `;
