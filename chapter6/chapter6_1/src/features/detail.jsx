@@ -6,38 +6,33 @@ import Loading from "../components/Loading.jsx";
 import { useParams } from "react-router-dom";
 
 const Container = styled.div`
+  height: 200%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const TopContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   height: 100%;
   width: 100%;
-  position: relative;
-`;
-const BackGroundImage = styled.img`
-  height: 100%;
-  width: 100%;
-  opacity: 0.8;
-  position: absolute;
-  z-index: -1;
-`;
-const BackGroundBox = styled.div`
-  height: 100%;
-  width: 100%;
-  opacity: 0.8;
-  position: absolute;
-  z-index: 0;
-  background-color: #135d66;
+  background: ${({ background }) => `url(${background})`};
+  background-size: 100%;
+  background-position: top;
+  background-repeat: no-repeat;
 `;
 const Content = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
-  position: relative;
   justify-content: center;
   align-items: center;
   text-align: center;
-  z-index: 1;
+  background-color: #135d66;
+  opacity: 0.8;
 `;
 const Poster = styled.img`
   width: 15%;
@@ -67,6 +62,38 @@ const Text = styled.div`
   margin-top: 20px;
 `;
 
+const BottomContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  background-color: #135d66;
+  opacity: 0.8;
+`;
+
+const Casts = styled.div`
+  height: 100%;
+  background-color: #135d66;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  grid-gap: 10px;
+`;
+const CastData = styled.div`
+  width: 50px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+`;
+const CastImage = styled.div`
+  width: 50px;
+  height: 50px;
+`;
+const CastText = styled.div`
+  height: 10px;
+  width: 50px;
+  font-size: 8px;
+`;
+
 const Detail = () => {
   const [movieData, setMovieData] = useState();
   const [creditData, setCreditData] = useState();
@@ -80,10 +107,10 @@ const Detail = () => {
       );
       try {
         setIsLoading(true);
-        const response1 = await axios(option1);
-        const response2 = await axios(option2);
-        setMovieData(response1.data);
-        setCreditData(response2.data);
+        const md = await axios(option1);
+        const cd = await axios(option2);
+        setMovieData(md.data);
+        setCreditData(cd.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -106,42 +133,40 @@ const Detail = () => {
       return "상세 정보가 없습니다.";
     }
   };
-  const returnCasts = (cast) => {
-    if (cast != null) {
-      return cast.slice(0, 5).map((cast) => cast.name);
-    } else {
-      return "상세 정보가 없습니다.";
-    }
-  };
-  const returnCrews = (crew) => {
-    if (crew != null) {
-      return crew.slice(0, 5).map((crew) => crew.name);
-    } else {
-      return "상세 정보가 없습니다.";
-    }
-  };
   if (isLoading) {
     return <Loading />;
   } else {
     return (
       <Container>
-        <BackGroundImage
-          src={`https://image.tmdb.org/t/p/w1280/${movieData.backdrop_path}`}
-        ></BackGroundImage>
-        <BackGroundBox></BackGroundBox>
-        <Content>
-          <Poster
-            src={`https://image.tmdb.org/t/p/w500/${movieData.poster_path}`}
-          />
-          <OverView>
-            <Title>{movieData.title}</Title>
-            <Text>{returnRate(movieData.vote_average)}</Text>
-            <Text>{movieData.release_date}</Text>
-            <Text>{returnOverView(movieData.overview)}</Text>
-            <Text>출연진 : {returnCasts(creditData.cast)}</Text>
-            <Text>제작진 : {returnCrews(creditData.crew)}</Text>
-          </OverView>
-        </Content>
+        <TopContainer
+          background={`https://image.tmdb.org/t/p/w1280/${movieData.backdrop_path}`}
+        >
+          <Content>
+            <Poster
+              src={`https://image.tmdb.org/t/p/w500/${movieData.poster_path}`}
+            />
+            <OverView>
+              <Title>{movieData.title}</Title>
+              <Text>{returnRate(movieData.vote_average)}</Text>
+              <Text>{movieData.release_date}</Text>
+              <Text>{returnOverView(movieData.overview)}</Text>
+            </OverView>
+          </Content>
+        </TopContainer>
+        <BottomContainer>
+          <Casts>
+            {creditData.cast.map((credit) => (
+              <CastData>
+                <CastImage>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w300/${credit.profile_path}`}
+                  ></img>
+                </CastImage>
+                <CastText>{credit.name}</CastText>
+              </CastData>
+            ))}
+          </Casts>
+        </BottomContainer>
       </Container>
     );
   }

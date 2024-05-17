@@ -116,7 +116,7 @@ const Main = () => {
         console.log(error);
       }
     };
-    const debouncedFetchMovies = _.debounce(getMovieData, 300); // 300ms의 디바운싱
+    const debouncedFetchMovies = _.debounce(getMovieData, 1000);
     debouncedFetchMovies();
 
     return () => {
