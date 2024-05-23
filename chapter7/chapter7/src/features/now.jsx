@@ -18,6 +18,7 @@ const Page = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
+  margin-bottom: 20px;
 `;
 
 const PageButton = styled.button`
@@ -25,7 +26,7 @@ const PageButton = styled.button`
   width: 33%;
   font-size: 20px;
   color: white;
-  background-color: none;
+  background-color: transparent;
 `;
 
 const PageText = styled.div`
@@ -62,9 +63,9 @@ const Now = () => {
       <Container>
         <MovieComponent movieData={movieData} />
         <Page>
-          <PageButton onClick={setPage(page - 1)}>&lt;</PageButton>
+          <PageButton onClick={() => setPage(page - 1)}>&lt;</PageButton>
           <PageText>{page}</PageText>
-          <PageButton onClick={setPage(page + 1)}>&gt;</PageButton>
+          <PageButton onClick={() => setPage(page + 1)}>&gt;</PageButton>
         </Page>
       </Container>
     );
