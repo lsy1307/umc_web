@@ -98,6 +98,7 @@ const Login = () => {
     username: "",
   });
   const [isFirstRender, setIsFirstRender] = useState(true);
+  const navigate = useNavigate();
   let isString = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/;
   let isPw = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{4,13}$/;
   const inputHandler = (e) => {
@@ -171,8 +172,20 @@ const Login = () => {
   }, [iscorrect.pw]);
   useEffect(() => {
     const isEnabled = iscorrect.validName && iscorrect.validPw;
-    setButton(!isEnabled);
+    setButton(isEnabled);
   }, [iscorrect]);
+  const Login = async () => {
+    try {
+      const res = await axios.post("http://localhost:8080/auth/login", {
+        username: iscorrect.username,
+        password: iscorrect.pw,
+      });
+      localStorage.setItem("token", res.data.token);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Container>
       <LoginContainer>
@@ -194,7 +207,9 @@ const Login = () => {
           ></InputText>
           <Error>{alertMessage.pw}</Error>
         </Input>
-        <LoginButton disabled={isButtonDisabled}>로그인</LoginButton>
+        <LoginButton disabled={isButtonDisabled} onClick={() => Login}>
+          로그인
+        </LoginButton>
       </LoginContainer>
     </Container>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Container = styled.div`
   width: 100%;
@@ -152,7 +153,7 @@ const Register = () => {
     }
   };
   const validUsername = () => {
-    setValid((prevState) => ({ ...prevState, validName: false }));
+    setValid((prevState) => ({ ...prevState, validUserame: false }));
     if (iscorrect.username == "")
       setAlertMessage((prevState) => ({
         ...prevState,
@@ -306,9 +307,21 @@ const Register = () => {
       iscorrect.validEmail &&
       iscorrect.validAge &&
       iscorrect.validPw &&
-      iscorrect.validPwCheck;
+      iscorrect.validPwCheck &&
+      iscorrect.validUsername;
     setButton(!isEnabled);
   }, [iscorrect]);
+  const Regist = async () => {
+    const res = await axios.post("http://localhost:8080/auth/signup", {
+      name: iscorrect.name,
+      email: iscorrect.email,
+      age: iscorrect.age,
+      username: iscorrect.username,
+      password: iscorrect.pw,
+      passwordCheck: iscorrect.pwCheck,
+    });
+    localStorage.setItem("token", res.data.token);
+  };
   return (
     <Container>
       <RegisterContainer>
@@ -382,13 +395,7 @@ const Register = () => {
         <RegisterButton
           onClick={() => {
             navigate("/login");
-            console.log({
-              name: iscorrect.name,
-              email: iscorrect.email,
-              age: iscorrect.age,
-              pw: iscorrect.pw,
-              pwCheck: iscorrect.pwCheck,
-            });
+            Regist();
           }}
           disabled={isButtonDisabled}
         >

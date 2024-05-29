@@ -5,7 +5,7 @@ export function getAPI(url, page) {
       accept: "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`,
     },
-    params: { language: "en-US", page },
+    params: { language: "ko-KR", page },
     url,
   };
 }

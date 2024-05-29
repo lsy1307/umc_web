@@ -4,7 +4,17 @@ import { useNavigate } from "react-router-dom";
 
 const Background = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
   background-color: #135d66;
+  text-align: center;
+  height: auto;
+`;
+
+const BottomContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 const MovieContainer = styled.div`
@@ -67,8 +77,42 @@ const MovieText = styled.div`
   font-weight: bold;
   color: #e3fef7;
 `;
+const Page = styled.div`
+  height: 50%;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 120px;
+`;
 
-const MovieComponent = ({ movieData }) => {
+const PageButton = styled.button`
+  height: 80%;
+  width: 20%;
+  font-size: 20px;
+  color: white;
+  background-color: transparent;
+  &:disabled {
+    color: gray;
+  }
+`;
+
+const PageText = styled.div`
+  font-size: 20px;
+  color: white;
+  margin-left: 20px;
+  margin-right: 20px;
+`;
+
+const MovieComponent = ({
+  movieData,
+  page,
+  setPage,
+  isButton,
+  usePage,
+  useScroll,
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -99,6 +143,17 @@ const MovieComponent = ({ movieData }) => {
           </ContentContainer>
         ))}
       </MovieContainer>
+      {usePage && (
+        <BottomContainer>
+          <Page>
+            <PageButton onClick={() => setPage(page - 1)} disabled={isButton}>
+              &lt;
+            </PageButton>
+            <PageText>{page}</PageText>
+            <PageButton onClick={() => setPage(page + 1)}>&gt;</PageButton>
+          </Page>
+        </BottomContainer>
+      )}
     </Background>
   );
 };
