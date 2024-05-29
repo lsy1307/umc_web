@@ -5,17 +5,13 @@ import MovieComponent from "../components/movieComponent";
 import { getAPI } from "../config.js";
 import Loading from "../components/Loading.jsx";
 
-const throttle = (func, limit) => {
-  let inThrottle;
-  return function () {
-    const args = arguments;
-    const context = this;
-    if (!inThrottle) {
-      func.apply(context, args);
-      inThrottle = true;
-      setTimeout(() => (inThrottle = false), limit);
-    }
-  };
+const cacheData = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+const retrieveCache = (key) => {
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
 };
 
 const Popular = () => {
@@ -31,11 +27,22 @@ const Popular = () => {
 
   useEffect(() => {
     const getMovieData = async () => {
+      const cacheKey = `movies_popular_page_${page}`;
+      const cachedData = retrieveCache(cacheKey);
+
+      if (cachedData) {
+        setMovieData(cachedData);
+        return;
+      }
+
       const option = getAPI(`https://api.themoviedb.org/3/movie/popular`, page);
       try {
         setIsLoading(true);
         const response = await axios(option);
-        setMovieData(response.data.results);
+        if (response.data && response.data.results) {
+          setMovieData(response.data.results);
+          cacheData(cacheKey, response.data.results);
+        }
         setIsLoading(false);
       } catch (error) {
         console.log(error);

@@ -106,9 +106,11 @@ const Main = () => {
           });
           setUserData(response.data);
           setIsLoading(false);
+          setIsToken(true);
         } catch (error) {
           console.error("Failed to fetch user data:", error);
           setIsToken(false);
+          setIsLoading(false);
         }
       }
     };
@@ -137,6 +139,7 @@ const Main = () => {
         setIsLoading(false);
       } catch (error) {
         console.log(error);
+        setIsLoading(false);
       }
     };
     const debouncedFetchMovies = _.debounce(getMovieData, 1000);

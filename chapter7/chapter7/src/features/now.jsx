@@ -18,8 +18,9 @@ const throttle = (func, limit) => {
   };
 };
 
-const Popular = () => {
+const Now = () => {
   const [movieData, setMovieData] = useState([]);
+  const [movieCache, setMovieCache] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -27,6 +28,12 @@ const Popular = () => {
   useEffect(() => {
     const loadMovies = async () => {
       if (!hasMore || isLoading) return;
+
+      if (movieCache[page]) {
+        setMovieData([...movieData, ...movieCache[page]]);
+        return;
+      }
+
       setIsLoading(true);
       try {
         const options = getAPI(
@@ -34,7 +41,13 @@ const Popular = () => {
           page
         );
         const response = await axios(options);
-        setMovieData((prevData) => [...prevData, ...response.data.results]);
+
+        setMovieCache({
+          ...movieCache,
+          [page]: response.data.results,
+        });
+
+        setMovieData([...movieData, ...response.data.results]);
         setHasMore(response.data.page < response.data.total_pages);
       } catch (error) {
         console.error("Failed to fetch movies:", error);
@@ -43,17 +56,17 @@ const Popular = () => {
     };
 
     loadMovies();
-  }, [page]);
+  }, [page, movieCache, movieData]);
 
   useEffect(() => {
     const handleScroll = throttle(() => {
       const nearBottom =
-        window.innerHeight + document.documentElement.scrollTop >=
-        document.documentElement.offsetHeight - 500;
+        window.innerHeight + window.scrollY >=
+        document.documentElement.offsetHeight - 1000;
       if (nearBottom && !isLoading && hasMore) {
         setPage((prevPage) => prevPage + 1);
       }
-    }, 2000); // 2000ms는 예시로, 필요에 따라 조정 가능
+    }, 2000);
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -66,4 +79,4 @@ const Popular = () => {
   return <MovieComponent movieData={movieData} usePage={false} />;
 };
 
-export default Popular;
+export default Now;

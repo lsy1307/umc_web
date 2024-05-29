@@ -105,14 +105,7 @@ const PageText = styled.div`
   margin-right: 20px;
 `;
 
-const MovieComponent = ({
-  movieData,
-  page,
-  setPage,
-  isButton,
-  usePage,
-  useScroll,
-}) => {
+const MovieComponent = ({ movieData, page, setPage, isButton, usePage }) => {
   const navigate = useNavigate();
 
   return (
