@@ -87,10 +87,33 @@ const Main = () => {
   const [searchData, setSearch] = useState("");
   const [movieData, setMovieData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isToken, setIsToken] = useState(false);
+  const [userData, setUserData] = useState([]);
+  const token = localStorage.getItem("token");
   const inputHandler = (e) => {
     setSearch(e.target.value);
   };
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (token) {
+        try {
+          setIsLoading(true);
+          const response = await axios.get("http://localhost:8080/auth/me", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setUserData(response.data);
+          setIsLoading(false);
+        } catch (error) {
+          console.error("Failed to fetch user data:", error);
+          setIsToken(false);
+        }
+      }
+    };
+    fetchUserData();
+  }, [token]);
   useEffect(() => {
     const option = {
       method: "GET",
@@ -125,7 +148,13 @@ const Main = () => {
   }, [searchData]);
   return (
     <Container>
-      <Banner>환영합니다.</Banner>
+      <Banner>
+        {isLoading
+          ? "로딩중..."
+          : isToken
+          ? `${userData.username} 환영합니다.`
+          : "환영합니다."}
+      </Banner>
       <Search>
         <div>
           <MovieIcon src={movie}></MovieIcon>
@@ -145,7 +174,7 @@ const Main = () => {
           <Loading />
         ) : (
           <SearchContainer isLoading={isLoading}>
-            <MovieComponent movieData={movieData} />
+            <MovieComponent movieData={movieData} usePage={false} />
           </SearchContainer>
         )}
       </Search>

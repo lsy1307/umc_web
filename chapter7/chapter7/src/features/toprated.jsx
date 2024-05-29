@@ -28,7 +28,7 @@ const Top = () => {
   if (isLoading) {
     return <Loading />;
   } else {
-    return <MovieComponent movieData={movieData} />;
+    return <MovieComponent movieData={movieData} usePage={false} />;
   }
 };
 

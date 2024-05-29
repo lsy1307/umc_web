@@ -121,7 +121,7 @@ const Register = () => {
   const [isButtonDisabled, setButton] = useState(true);
   const navigate = useNavigate();
 
-  let isString = /^[ㄱ-ㅎ가-힣a-zA-Z]+$/;
+  let isString = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/;
   let isInt = /^[0-9]+$/;
   let isPw = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{4,13}$/;
 
@@ -312,15 +312,22 @@ const Register = () => {
     setButton(!isEnabled);
   }, [iscorrect]);
   const Regist = async () => {
-    const res = await axios.post("http://localhost:8080/auth/signup", {
-      name: iscorrect.name,
-      email: iscorrect.email,
-      age: iscorrect.age,
-      username: iscorrect.username,
-      password: iscorrect.pw,
-      passwordCheck: iscorrect.pwCheck,
-    });
-    localStorage.setItem("token", res.data.token);
+    try {
+      const res = await axios.post("http://localhost:8080/auth/signup", {
+        name: iscorrect.name,
+        email: iscorrect.email,
+        age: iscorrect.age,
+        username: iscorrect.username,
+        password: iscorrect.pw,
+        passwordCheck: iscorrect.pwCheck,
+      });
+      localStorage.setItem("token", res.data.token);
+      alert("회원가입 성공");
+      navigate("/login");
+    } catch (error) {
+      console.error("Failed to register:", error);
+      alert("회원가입 실패: " + error.response.data.message);
+    }
   };
   return (
     <Container>
@@ -394,7 +401,6 @@ const Register = () => {
         </Input>
         <RegisterButton
           onClick={() => {
-            navigate("/login");
             Regist();
           }}
           disabled={isButtonDisabled}

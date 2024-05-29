@@ -22,48 +22,43 @@ const Popular = () => {
   const [movieData, setMovieData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [isButton, setIsButton] = useState(true);
+
+  const checkPage = () => {
+    if (page <= 1) setIsButton(true);
+    else setIsButton(false);
+  };
 
   useEffect(() => {
-    const loadMovies = async () => {
-      if (!hasMore || isLoading) return;
-      setIsLoading(true);
+    const getMovieData = async () => {
+      const option = getAPI(`https://api.themoviedb.org/3/movie/popular`, page);
       try {
-        const options = getAPI(
-          `https://api.themoviedb.org/3/movie/popular`,
-          page
-        );
-        const response = await axios(options);
-        setMovieData((prevData) => [...prevData, ...response.data.results]);
-        setHasMore(response.data.page < response.data.total_pages);
+        setIsLoading(true);
+        const response = await axios(option);
+        setMovieData(response.data.results);
+        setIsLoading(false);
       } catch (error) {
-        console.error("Failed to fetch movies:", error);
+        console.log(error);
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
-
-    loadMovies();
+    getMovieData();
+    checkPage();
   }, [page]);
-
-  useEffect(() => {
-    const handleScroll = throttle(() => {
-      const nearBottom =
-        window.innerHeight + document.documentElement.scrollTop >=
-        document.documentElement.offsetHeight - 500;
-      if (nearBottom && !isLoading && hasMore) {
-        setPage((prevPage) => prevPage + 1);
-      }
-    }, 2000); // 2000ms는 예시로, 필요에 따라 조정 가능
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isLoading, hasMore]);
 
   if (isLoading && movieData.length === 0) {
     return <Loading />;
   }
 
-  return <MovieComponent movieData={movieData} usePage={false} />;
+  return (
+    <MovieComponent
+      movieData={movieData}
+      page={page}
+      setPage={setPage}
+      isButton={isButton}
+      usePage={true}
+    />
+  );
 };
 
 export default Popular;

@@ -207,7 +207,7 @@ const Login = () => {
           ></InputText>
           <Error>{alertMessage.pw}</Error>
         </Input>
-        <LoginButton disabled={isButtonDisabled} onClick={() => Login}>
+        <LoginButton disabled={isButtonDisabled} onClick={Login}>
           로그인
         </LoginButton>
       </LoginContainer>
