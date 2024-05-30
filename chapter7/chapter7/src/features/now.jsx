@@ -18,37 +18,46 @@ const throttle = (func, limit) => {
   };
 };
 
+const cacheData = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+const retrieveCache = (key) => {
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
+};
+
 const Now = () => {
   const [movieData, setMovieData] = useState([]);
-  const [movieCache, setMovieCache] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     const loadMovies = async () => {
-      if (!hasMore || isLoading) return;
+      const cacheKey = `movies_now_playing_page_${page}`;
+      const cachedData = retrieveCache(cacheKey);
 
-      if (movieCache[page]) {
-        setMovieData([...movieData, ...movieCache[page]]);
+      if (cachedData) {
+        setMovieData([...movieData, ...cachedData]);
         return;
       }
+
+      if (!hasMore || isLoading) return;
 
       setIsLoading(true);
       try {
         const options = getAPI(
-          `https://api.themoviedb.org/3/movie/now_playing`,
+          "https://api.themoviedb.org/3/movie/now_playing",
           page
         );
         const response = await axios(options);
 
-        setMovieCache({
-          ...movieCache,
-          [page]: response.data.results,
-        });
-
-        setMovieData([...movieData, ...response.data.results]);
-        setHasMore(response.data.page < response.data.total_pages);
+        if (response.data.results) {
+          cacheData(cacheKey, response.data.results);
+          setMovieData([...movieData, ...response.data.results]);
+          setHasMore(response.data.page < response.data.total_pages);
+        }
       } catch (error) {
         console.error("Failed to fetch movies:", error);
       }
@@ -56,17 +65,17 @@ const Now = () => {
     };
 
     loadMovies();
-  }, [page, movieCache, movieData]);
+  }, [page, movieData]);
 
   useEffect(() => {
-    const handleScroll = throttle(() => {
+    const handleScroll = () => {
       const nearBottom =
         window.innerHeight + window.scrollY >=
         document.documentElement.offsetHeight - 1000;
       if (nearBottom && !isLoading && hasMore) {
         setPage((prevPage) => prevPage + 1);
       }
-    }, 2000);
+    };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
