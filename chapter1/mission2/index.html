@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>umc study plan</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
+  <body>
     <div class="box">
-        <br>
-        <h1 id="title">UMC Study Plan</h1>
+      <br />
+      <h1 id="title">UMC Study Plan</h1>
     </div>
-    <hr class="horizon">
-    <form>
-        <div class="box">
-            <input type="text" id="text_box" placeholder="스터디 계획을 작성해 보세요!">
+    <hr class="horizon" />
+    <form id="plan">
+      <div class="box">
+        <input
+          type="text"
+          id="text_box"
+          placeholder="스터디 계획을 작성해 보세요!"
+        />
+      </div>
+      <div id="labels">
+        <div id="todo_items">
+          <label class="font" id="todo">해야할 일</label>
         </div>
-        <div id="labels">
-            <div id="todo_items">
-                <label class="font" id="todo">해야할 일</label>
-            </div>
-            <div id="done_items">
-                <label class="font" id="done">해낸 일</label>
-            </div>
+        <div id="done_items">
+          <label class="font" id="done">해낸 일</label>
         </div>
+      </div>
     </form>
     <script src="main.js"></script>
-</body>
-
+  </body>
 </html>

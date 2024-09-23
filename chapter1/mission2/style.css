@@ -1,76 +1,80 @@
-body{
-    background-color:#e5d8f6;
-    width:100%;
-    height:100%;
+body {
+  background-color: #e5d8f6;
+  width: 100%;
+  height: 100%;
 }
-.box{
-    text-align:center;
-    margin:0 auto;
+.box {
+  text-align: center;
+  margin: 0 auto;
 }
-#title{
-    font-size:40px;
-    color:rgb(85, 85, 85);
-    margin-top: 100px;
-    margin-bottom:100px;
+#title {
+  font-size: 40px;
+  color: rgb(85, 85, 85);
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
-#text_box{
-    width:1000px;
-    height:80px;
-    margin-top:10px;
-    margin-bottom:10px;
+#text_box {
+  width: 1000px;
+  height: 80px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 
-    font-size:26px;
-    padding-left:20px;
-    border-color:rgb(164, 92, 212);
-    border-style:solid;
-    border-radius:5px;
-    background-color:rgb(255, 255, 255);
+  font-size: 26px;
+  padding-left: 20px;
+  border-color: rgb(164, 92, 212);
+  border-style: solid;
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
 }
-#text_box::placeholder{
-    color:rgba(200, 200, 200, 0.523);
-    font-size:26px;
-    font-style:italic;    
+#text_box::placeholder {
+  color: rgba(200, 200, 200, 0.523);
+  font-size: 26px;
+  font-style: italic;
 }
 #text_box:focus {
-    outline:rgb(164, 92, 212);
+  outline: rgb(164, 92, 212);
 }
-.horizon{
-    border-color:rgb(164, 92, 212);
-    border-width:1px;
-    width:80%;
+.horizon {
+  border-color: rgb(164, 92, 212);
+  border-width: 1px;
+  width: 80%;
 }
-.font{
-    font-size:24px;
-    color:#393939;
-    text-decoration:underline;
-    text-decoration-color:rgb(164, 92, 212);
+.font {
+  font-size: 24px;
+  color: #393939;
+  text-decoration: underline;
+  text-decoration-color: rgb(164, 92, 212);
 }
-#labels{
-    display:flex;
-    justify-content: space-between;
+#plan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-#todo_items{
-    width: 10%;
-    height: 100%;
-    display: inline-block;
-    vertical-align: top;
-    margin-left:800px;
+#labels {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
 }
-#done_items{
-    height: 100%;
-    vertical-align: top;
-    margin-right:800px;
+#todo_items {
+  width: 10%;
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+}
+#done_items {
+  height: 100%;
+  vertical-align: top;
 }
 
 .todo_item {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 }
 .todo_item span {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
